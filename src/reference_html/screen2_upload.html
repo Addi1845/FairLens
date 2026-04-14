@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FairLens AI | Upload &amp; Configure</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-surface-variant": "#464555", "secondary-fixed-dim": "#b7c8e1", "on-primary-container": "#dad7ff", "surface-bright": "#faf8ff", "surface-variant": "#dae2fd", "on-tertiary-fixed": "#40000c", "on-secondary-fixed": "#0b1c30", tertiary: "#950029", "on-secondary": "#ffffff", "secondary-fixed": "#d3e4fe", background: "#faf8ff", outline: "#777587", "on-secondary-container": "#54647a", "on-primary-fixed-variant": "#3323cc", "surface-container-high": "#e2e7ff", "surface-container-low": "#f2f3ff", "tertiary-fixed": "#ffdada", primary: "#3525cd", "on-error": "#ffffff", "primary-fixed": "#e2dfff", "error-container": "#ffdad6", "inverse-primary": "#c3c0ff", "surface-container": "#eaedff", "outline-variant": "#c7c4d8", "inverse-surface": "#283044", "tertiary-container": "#c20038", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", surface: "#faf8ff", "surface-tint": "#4d44e3", "primary-fixed-dim": "#c3c0ff", "surface-dim": "#d2d9f4", "inverse-on-surface": "#eef0ff", "surface-container-highest": "#dae2fd", "secondary-container": "#d0e1fb", "on-tertiary-container": "#ffd0d2", "on-secondary-fixed-variant": "#38485d", "on-tertiary-fixed-variant": "#920028", "on-background": "#131b2e", "on-primary": "#ffffff", secondary: "#505f76", "primary-container": "#4f46e5", "on-primary-fixed": "#0f0069", "on-tertiary": "#ffffff", error: "#ba1a1a", "on-surface": "#131b2e", "tertiary-fixed-dim": "#ffb3b6"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, fontFamily: {headline: ["Be Vietnam Pro"], body: ["Be Vietnam Pro"], label: ["Be Vietnam Pro"], display: "Be Vietnam Pro"}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 z-50 w-full bg-[#faf8ff] flex justify-between items-center px-8 py-4 shadow-[0_8px_32px_0_rgba(19,27,46,0.04)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-[#131b2e] tracking-tighter">FairLens</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-manrope tracking-tight font-bold text-lg text-[#3525cd] border-b-2 border-[#3525cd] pb-1 scale-95 duration-150" href="#">Upload</a>
+<a class="font-manrope tracking-tight font-bold text-lg text-[#131b2e]/60 hover:text-[#3525cd] transition-colors duration-200" href="#">Audit Report</a>
+<a class="font-manrope tracking-tight font-bold text-lg text-[#131b2e]/60 hover:text-[#3525cd] transition-colors duration-200" href="#">Affected People</a>
+<a class="font-manrope tracking-tight font-bold text-lg text-[#131b2e]/60 hover:text-[#3525cd] transition-colors duration-200" href="#">Remediation</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#131b2e]/60 hover:text-[#3525cd] transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-[#131b2e]/60 hover:text-[#3525cd] transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant/15">
+<img alt="Chief Ethics Officer Profile" data-alt="professional portrait of a chief ethics officer in a minimalist modern office setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmMK2M9IsGwKtusdXAPBXsGyJlJ_c12CypYGJI3ObW_3msbSWdGa6JJBF6C7bpeIds-gwnU6JYufjj6QEZICJud0jAameIHD0QdwsutgF2G9csNQKCb8jqdmRniFwAKsmwQKKRYtFht-B7M6H7DBEMr5vJd8Z-Sf4ynSQnswN-NNX9iTZCG4qXvKTZcreqc7MQqG1l1GVCyqLaFwEfaav55Ygp9Lihy4CNn1wvqrR8Itk_Zl7W1gkVei7u4gU-k_SVYqLwdIZgUhf5"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-12 px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Section: Data Ingestion -->
+<section class="lg:col-span-7 space-y-6">
+<div class="flex items-baseline gap-3">
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface">Data Ingestion</h2>
+<span class="text-xs uppercase tracking-widest text-secondary font-semibold">Step 01</span>
+</div>
+<div class="bg-surface-container-low rounded-xl p-8 space-y-6">
+<!-- Upload Area -->
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-12 flex flex-col items-center justify-center text-center space-y-4 hover:bg-surface-container-highest/50 transition-colors cursor-pointer group">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined !text-4xl" style="font-variation-settings: 'FILL' 0;">cloud_upload</span>
+</div>
+<div>
+<p class="text-lg font-semibold text-on-surface">Drag and drop your dataset (CSV) here</p>
+<p class="text-sm text-secondary">Supported format: .csv, .xlsx (Max 50MB)</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+<span class="text-xs font-bold text-outline uppercase tracking-tighter">Or</span>
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+</div>
+<div class="flex flex-col items-center gap-4">
+<button class="px-6 py-3 bg-secondary-fixed text-on-secondary-fixed rounded-lg font-semibold hover:bg-secondary-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">database</span>
+                        Or use our built-in demo dataset
+                    </button>
+<!-- Alert Badge -->
+<div class="flex items-center gap-3 px-4 py-2 bg-surface-container-highest text-primary rounded-full border border-primary/10 animate-pulse">
+<span class="material-symbols-outlined !text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs font-bold uppercase tracking-wide">Demo Loaded: Loan Applicants (500 records)</span>
+</div>
+</div>
+</div>
+<!-- Data Preview -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/15">
+<div class="px-6 py-4 bg-surface-container-low/50 flex justify-between items-center">
+<h3 class="font-bold text-sm text-on-surface">Dataset Preview</h3>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded bg-white text-on-surface shadow-sm"><span class="material-symbols-outlined !text-sm">chevron_left</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-white text-on-surface shadow-sm"><span class="material-symbols-outlined !text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead class="bg-surface-container-low/30 border-b border-outline-variant/10">
+<tr>
+<th class="px-6 py-3 font-semibold text-secondary uppercase tracking-tighter text-[10px]">ApplicantID</th>
+<th class="px-6 py-3 font-semibold text-secondary uppercase tracking-tighter text-[10px]">Age</th>
+<th class="px-6 py-3 font-semibold text-secondary uppercase tracking-tighter text-[10px]">Gender</th>
+<th class="px-6 py-3 font-semibold text-secondary uppercase tracking-tighter text-[10px]">Income</th>
+<th class="px-6 py-3 font-semibold text-secondary uppercase tracking-tighter text-[10px]">CreditScore</th>
+<th class="px-6 py-3 font-semibold text-secondary uppercase tracking-tighter text-[10px]">Employed</th>
+<th class="px-6 py-3 font-semibold text-secondary uppercase tracking-tighter text-[10px]">Decision</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-on-surface font-medium">#LF-9021</td>
+<td class="px-6 py-4 text-on-surface">34</td>
+<td class="px-6 py-4 text-on-surface">Female</td>
+<td class="px-6 py-4 text-on-surface">$72,000</td>
+<td class="px-6 py-4 text-on-surface">710</td>
+<td class="px-6 py-4 text-on-surface">Yes</td>
+<td class="px-6 py-4"><span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase">Approved</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-on-surface font-medium">#LF-8842</td>
+<td class="px-6 py-4 text-on-surface">22</td>
+<td class="px-6 py-4 text-on-surface">Male</td>
+<td class="px-6 py-4 text-on-surface">$31,500</td>
+<td class="px-6 py-4 text-on-surface">620</td>
+<td class="px-6 py-4 text-on-surface">Yes</td>
+<td class="px-6 py-4"><span class="px-2 py-0.5 bg-tertiary-container/10 text-tertiary rounded-full text-[10px] font-bold uppercase">Denied</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-on-surface font-medium">#LF-7719</td>
+<td class="px-6 py-4 text-on-surface">45</td>
+<td class="px-6 py-4 text-on-surface">Non-binary</td>
+<td class="px-6 py-4 text-on-surface">$104,000</td>
+<td class="px-6 py-4 text-on-surface">815</td>
+<td class="px-6 py-4 text-on-surface">Yes</td>
+<td class="px-6 py-4"><span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase">Approved</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-on-surface font-medium">#LF-6602</td>
+<td class="px-6 py-4 text-on-surface">52</td>
+<td class="px-6 py-4 text-on-surface">Female</td>
+<td class="px-6 py-4 text-on-surface">$45,000</td>
+<td class="px-6 py-4 text-on-surface">590</td>
+<td class="px-6 py-4 text-on-surface">No</td>
+<td class="px-6 py-4"><span class="px-2 py-0.5 bg-tertiary-container/10 text-tertiary rounded-full text-[10px] font-bold uppercase">Denied</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4 text-on-surface font-medium">#LF-5410</td>
+<td class="px-6 py-4 text-on-surface">29</td>
+<td class="px-6 py-4 text-on-surface">Male</td>
+<td class="px-6 py-4 text-on-surface">$88,200</td>
+<td class="px-6 py-4 text-on-surface">740</td>
+<td class="px-6 py-4 text-on-surface">Yes</td>
+<td class="px-6 py-4"><span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold uppercase">Approved</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Right Section: Configure Audit -->
+<aside class="lg:col-span-5 space-y-6">
+<div class="flex items-baseline gap-3">
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface">Audit Parameters</h2>
+<span class="text-xs uppercase tracking-widest text-secondary font-semibold">Step 02</span>
+</div>
+<div class="bg-surface-container-highest/30 rounded-xl p-8 border border-outline-variant/10 space-y-8">
+<div class="space-y-6">
+<!-- Dropdown 1 -->
+<div class="space-y-2">
+<label class="text-sm font-bold text-on-surface flex items-center gap-2">
+                            Protected Attribute
+                            <span class="material-symbols-outlined !text-xs text-outline">info</span>
+</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium">
+<option>Gender</option>
+<option>Age</option>
+<option>Race</option>
+<option>Disability</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Dropdown 2 -->
+<div class="space-y-2">
+<label class="text-sm font-bold text-on-surface flex items-center gap-2">
+                            Decision Column
+                            <span class="material-symbols-outlined !text-xs text-outline">info</span>
+</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium">
+<option>Decision</option>
+<option>Approved</option>
+<option>Hired</option>
+<option>Diagnosed</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Dropdown 3 -->
+<div class="space-y-2">
+<label class="text-sm font-bold text-on-surface flex items-center gap-2">
+                            Fairness Metric
+                            <span class="material-symbols-outlined !text-xs text-outline">info</span>
+</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border border-outline-variant/30 rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium">
+<option>Demographic Parity</option>
+<option>Equalized Odds</option>
+<option>Equal Opportunity</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<!-- Toggle -->
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/20 shadow-sm">
+<div class="space-y-1">
+<p class="text-sm font-bold text-on-surface">Include model re-evaluation</p>
+<p class="text-xs text-secondary">Automatically simulate fairness interventions</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<div class="pt-6">
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-bold text-lg shadow-[0_8px_24px_rgba(53,37,205,0.25)] hover:shadow-[0_12px_32px_rgba(53,37,205,0.4)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-3">
+                        Run Bias Audit
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<p class="text-center text-[10px] text-secondary mt-4 uppercase tracking-[0.2em] font-semibold">Estimated runtime: &lt; 10 seconds</p>
+</div>
+</div>
+<!-- Side Card Info -->
+<div class="bg-[#3525cd] rounded-xl p-6 text-on-primary relative overflow-hidden">
+<div class="relative z-10 space-y-2">
+<p class="text-xs font-bold uppercase tracking-widest opacity-80">Methodology Note</p>
+<p class="text-sm leading-relaxed">Our engine uses a combination of SHAP values and disparity metrics to identify systemic bias patterns at 99.4% confidence intervals.</p>
+</div>
+<!-- Decorative element -->
+<div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="mt-12 bg-[#faf8ff] border-t border-[#c7c4d8]/15 py-8 flex flex-col md:flex-row justify-between items-center px-12 gap-4">
+<p class="font-inter text-xs uppercase tracking-widest text-slate-400">© 2024 FairLens AI Ethics. All Rights Reserved.</p>
+<div class="flex gap-8">
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">Ethics Policy</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">Methodology</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">API Docs</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">Version 1.4.0-Stable</a>
+</div>
+</footer>
+<!-- Loading Modal Overlay (Hidden state represented by fixed position but could be visible) -->
+<!-- To see it: remove 'hidden' class from the container div below -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center hidden">
+<div class="absolute inset-0 bg-on-surface/40 backdrop-blur-md"></div>
+<div class="relative bg-surface-container-lowest w-full max-w-lg rounded-2xl p-10 shadow-2xl flex flex-col items-center gap-8 border border-outline-variant/15">
+<div class="text-center space-y-2">
+<h3 class="text-2xl font-extrabold text-on-surface">Analyzing Ethical Disparity</h3>
+<p class="text-sm text-secondary">The Forensic Engine is scrutinizing your dataset...</p>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-3 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3 shadow-[0_0_12px_rgba(53,37,205,0.4)]"></div>
+</div>
+<!-- Sequential Step Labels -->
+<div class="w-full space-y-4">
+<div class="flex items-center gap-3 text-on-surface font-medium opacity-100">
+<span class="material-symbols-outlined text-primary !text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm">Parsing dataset...</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface font-medium opacity-100">
+<span class="material-symbols-outlined text-primary !text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm">Profiling distributions...</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface font-semibold animate-pulse">
+<div class="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+<span class="text-sm text-primary">Running fairness checks...</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface/40 font-medium">
+<span class="material-symbols-outlined !text-xl">radio_button_unchecked</span>
+<span class="text-sm">Computing SHAP values...</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface/40 font-medium">
+<span class="material-symbols-outlined !text-xl">radio_button_unchecked</span>
+<span class="text-sm">Generating report...</span>
+</div>
+</div>
+<p class="text-[10px] text-outline font-bold uppercase tracking-widest">Powered by FairLens Core Engine v3.2</p>
+</div>
+</div>
+</body></html>

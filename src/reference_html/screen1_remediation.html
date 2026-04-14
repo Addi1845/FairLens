@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Remediation &amp; Re-evaluation | FairLens AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-surface-variant": "#464555", "secondary-fixed-dim": "#b7c8e1", "on-primary-container": "#dad7ff", "surface-bright": "#faf8ff", "surface-variant": "#dae2fd", "on-tertiary-fixed": "#40000c", "on-secondary-fixed": "#0b1c30", tertiary: "#950029", "on-secondary": "#ffffff", "secondary-fixed": "#d3e4fe", background: "#faf8ff", outline: "#777587", "on-secondary-container": "#54647a", "on-primary-fixed-variant": "#3323cc", "surface-container-high": "#e2e7ff", "surface-container-low": "#f2f3ff", "tertiary-fixed": "#ffdada", primary: "#3525cd", "on-error": "#ffffff", "primary-fixed": "#e2dfff", "error-container": "#ffdad6", "inverse-primary": "#c3c0ff", "surface-container": "#eaedff", "outline-variant": "#c7c4d8", "inverse-surface": "#283044", "tertiary-container": "#c20038", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", surface: "#faf8ff", "surface-tint": "#4d44e3", "primary-fixed-dim": "#c3c0ff", "surface-dim": "#d2d9f4", "inverse-on-surface": "#eef0ff", "surface-container-highest": "#dae2fd", "secondary-container": "#d0e1fb", "on-tertiary-container": "#ffd0d2", "on-secondary-fixed-variant": "#38485d", "on-tertiary-fixed-variant": "#920028", "on-background": "#131b2e", "on-primary": "#ffffff", secondary: "#505f76", "primary-container": "#4f46e5", "on-primary-fixed": "#0f0069", "on-tertiary": "#ffffff", error: "#ba1a1a", "on-surface": "#131b2e", "tertiary-fixed-dim": "#ffb3b6"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, fontFamily: {headline: ["Be Vietnam Pro"], body: ["Be Vietnam Pro"], label: ["Be Vietnam Pro"], display: "Be Vietnam Pro"}}}};</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .display-font { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Top Navigation -->
+<nav class="fixed top-0 z-50 w-full bg-[#faf8ff] flex justify-between items-center px-8 py-4 shadow-[0_8px_32px_0_rgba(19,27,46,0.04)]">
+<div class="text-2xl font-black text-[#131b2e] tracking-tighter">FairLens</div>
+<div class="hidden md:flex items-center space-x-8 font-manrope tracking-tight font-bold text-lg">
+<a class="text-[#131b2e]/60 hover:text-[#3525cd] transition-colors duration-200" href="#">Upload</a>
+<a class="text-[#131b2e]/60 hover:text-[#3525cd] transition-colors duration-200" href="#">Audit Report</a>
+<a class="text-[#131b2e]/60 hover:text-[#3525cd] transition-colors duration-200" href="#">Affected People</a>
+<a class="text-[#3525cd] border-b-2 border-[#3525cd] pb-1" href="#">Remediation</a>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-[#3525cd]">notifications</span>
+<span class="material-symbols-outlined text-[#3525cd]">settings</span>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a chief ethics officer in a minimalist office setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtBTzc7Pqo2-RSm62y-Zdq4ueqIewl2ENk_nMTqSmFjktSOn593B8peKZv2g5E9fTlLEbH6R2xadwpKMkmrAEHWogUlR375tI5iydE-5O8OuyzLCr-103YqnVYYng0p-OC3cH_oLGuYA1Dp7diR4dTonGwxpguHVNBNJYqby1jCE0YuaGSc_-6UPPKnMIJpKqwMVkdIrUKES2bK1mxTFd3qSyRcw_AgPHhzq-fyNEiHECt2cZfvatvY_TxiXIy-DTeEb7pt3Yv5FjO"/>
+</div>
+</div>
+</nav>
+<!-- Side Navigation -->
+<aside class="h-screen w-72 left-0 fixed bg-[#f2f3ff] flex flex-col p-6 space-y-2 border-r border-[#c7c4d8]/15 z-40 pt-24">
+<div class="mb-8 px-2">
+<div class="flex items-center space-x-3 mb-1">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-sm font-semibold text-on-surface">System Integrity</span>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">V3.2 Active Audit</span>
+</div>
+<div class="space-y-1">
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:translate-x-1 transition-transform duration-200 rounded-lg hover:bg-slate-200/50" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:translate-x-1 transition-transform duration-200 rounded-lg hover:bg-slate-200/50" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-medium">Models</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:translate-x-1 transition-transform duration-200 rounded-lg hover:bg-slate-200/50" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-medium">Ethics Ledger</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 text-slate-500 hover:translate-x-1 transition-transform duration-200 rounded-lg hover:bg-slate-200/50" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-medium">Team Access</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 bg-white text-[#3525cd] rounded-lg shadow-sm font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-medium">History</span>
+</a>
+</div>
+<div class="mt-auto pt-8">
+<button class="w-full bg-primary text-on-primary py-3 px-4 rounded-lg font-bold flex items-center justify-center space-x-2 mb-8">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>New Bias Scan</span>
+</button>
+<div class="space-y-1">
+<a class="flex items-center space-x-3 px-4 py-2 text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="policy">policy</span>
+<span>Legal</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-2 text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-72 pt-24 px-12 pb-12">
+<!-- Header Section -->
+<header class="mb-10">
+<h1 class="text-4xl font-extrabold tracking-tight text-on-surface mb-2">Remediation Results — Debiased Model</h1>
+<p class="text-on-surface-variant font-medium">Comparative audit between historical algorithmic output and current ethical standards.</p>
+</header>
+<!-- Success Banner -->
+<div class="w-full bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-center space-x-4 mb-8">
+<div class="bg-emerald-500 text-white rounded-full p-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">check</span>
+</div>
+<p class="text-emerald-800 font-bold tracking-tight">Bias successfully reduced by 88%. The debiased model meets Demographic Parity standards.</p>
+</div>
+<!-- Part A: Bulk Remediation Summary -->
+<div class="grid grid-cols-12 gap-8 mb-12">
+<!-- Comparison Stat Cards -->
+<div class="col-span-12 md:col-span-4 space-y-6">
+<!-- Fairness Score -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-[0_8px_32px_0_rgba(19,27,46,0.02)]">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">Fairness Score</p>
+<div class="flex items-end justify-between">
+<div>
+<span class="text-4xl font-black text-on-surface">84</span><span class="text-on-surface-variant font-bold">/100</span>
+<p class="text-xs text-on-surface-variant mt-1">Previous: 27/100</p>
+</div>
+<div class="flex items-center text-emerald-600 font-bold">
+<span class="material-symbols-outlined">arrow_upward</span>
+<span class="text-lg">211%</span>
+</div>
+</div>
+</div>
+<!-- Parity Gap -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-[0_8px_32px_0_rgba(19,27,46,0.02)]">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">Parity Gap</p>
+<div class="flex items-end justify-between">
+<div>
+<span class="text-4xl font-black text-on-surface">4%</span>
+<p class="text-xs text-on-surface-variant mt-1">Previous: 34%</p>
+</div>
+<div class="flex items-center text-emerald-600 font-bold">
+<span class="material-symbols-outlined">arrow_downward</span>
+<span class="text-lg">30%</span>
+</div>
+</div>
+</div>
+<!-- Affected People -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/10 shadow-[0_8px_32px_0_rgba(19,27,46,0.02)]">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">Affected People</p>
+<div class="flex items-end justify-between">
+<div>
+<span class="text-4xl font-black text-on-surface">9</span>
+<p class="text-xs text-on-surface-variant mt-1">Previous: 112</p>
+</div>
+<div class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-bold">
+                            REDUCED
+                        </div>
+</div>
+</div>
+</div>
+<!-- Approval Rates Chart Card -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-low rounded-2xl p-8 flex flex-col">
+<div class="flex justify-between items-center mb-12">
+<h3 class="text-xl font-extrabold text-on-surface">Approval Rates by Group (Post-Debias)</h3>
+<div class="flex space-x-4">
+<div class="flex items-center space-x-2">
+<span class="w-3 h-3 bg-primary rounded-sm"></span>
+<span class="text-xs font-bold text-on-surface-variant">Male</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="w-3 h-3 bg-primary-container rounded-sm"></span>
+<span class="text-xs font-bold text-on-surface-variant">Female</span>
+</div>
+</div>
+</div>
+<!-- Simple CSS Bar Chart -->
+<div class="flex-grow flex items-end justify-center space-x-20 pb-4">
+<div class="flex flex-col items-center">
+<div class="w-16 bg-primary rounded-t-lg transition-all duration-500" style="height: 180px;"></div>
+<span class="mt-4 text-xs font-bold uppercase tracking-widest text-on-surface">Group A</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 bg-primary-container rounded-t-lg transition-all duration-500" style="height: 175px;"></div>
+<span class="mt-4 text-xs font-bold uppercase tracking-widest text-on-surface">Group B</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 bg-primary rounded-t-lg transition-all duration-500" style="height: 190px;"></div>
+<span class="mt-4 text-xs font-bold uppercase tracking-widest text-on-surface">Group C</span>
+</div>
+<div class="flex flex-col items-center">
+<div class="w-16 bg-primary-container rounded-t-lg transition-all duration-500" style="height: 188px;"></div>
+<span class="mt-4 text-xs font-bold uppercase tracking-widest text-on-surface">Group D</span>
+</div>
+</div>
+<div class="w-full h-[1px] bg-outline-variant/30"></div>
+<p class="mt-4 text-xs italic text-on-surface-variant text-center">Results show achievement of demographic parity within a ±2% tolerance window.</p>
+</div>
+</div>
+<!-- Part B: Individual Re-evaluation Focus -->
+<section class="mt-16">
+<div class="flex items-center space-x-3 mb-8">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">zoom_in</span>
+<h2 class="text-2xl font-extrabold tracking-tight">Case Re-evaluation Deep Dive</h2>
+</div>
+<div class="grid grid-cols-12 gap-8">
+<!-- Individual Focus Column -->
+<div class="col-span-12 lg:col-span-5 space-y-6">
+<!-- Profile Card -->
+<div class="bg-surface-container-highest/40 backdrop-blur-md rounded-2xl p-8 border border-outline-variant/20">
+<div class="flex items-center space-x-6 mb-8">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-primary/20">
+<span class="material-symbols-outlined text-primary text-3xl">account_circle</span>
+</div>
+<div>
+<h3 class="text-xl font-bold">Applicant #A-247</h3>
+<p class="text-on-surface-variant font-medium">Female | 31 years old</p>
+</div>
+</div>
+<!-- Side-by-side Score Comparison -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-red-50 border border-red-100 p-4 rounded-xl">
+<p class="text-[10px] font-bold uppercase text-red-700 tracking-wider mb-2">Biased Model</p>
+<p class="text-sm font-black text-red-900 mb-1">REJECTED</p>
+<p class="text-xs text-red-700">Score: 0.31</p>
+</div>
+<div class="bg-emerald-50 border border-emerald-100 p-4 rounded-xl">
+<p class="text-[10px] font-bold uppercase text-emerald-700 tracking-wider mb-2">Debiased Model</p>
+<p class="text-sm font-black text-emerald-900 mb-1">APPROVED</p>
+<p class="text-xs text-emerald-700">Score: 0.79</p>
+</div>
+</div>
+</div>
+<!-- Recommendation Box -->
+<div class="bg-white border-2 border-primary/30 p-6 rounded-2xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12"></div>
+<h4 class="text-primary font-bold mb-2 flex items-center">
+<span class="material-symbols-outlined text-sm mr-2" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+                            Actionable Insight
+                        </h4>
+<p class="text-on-surface leading-relaxed font-medium">
+                            This applicant should be contacted for reconsideration. Their financial profile is strong when gender is removed as a predictive variable.
+                        </p>
+<button class="mt-6 w-full py-3 bg-primary text-white rounded-lg font-bold flex items-center justify-center space-x-2 hover:bg-primary-container transition-colors">
+<span>Mark as Reconsidered</span>
+<span class="material-symbols-outlined">check_circle</span>
+</button>
+</div>
+</div>
+<!-- Weights Comparison Table -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest rounded-2xl border border-outline-variant/10 shadow-sm overflow-hidden flex flex-col">
+<div class="px-8 py-6 border-b border-outline-variant/10">
+<h3 class="font-extrabold text-on-surface">Feature Weight Variance Analysis</h3>
+<p class="text-xs text-on-surface-variant font-medium mt-1">Analysis of how remediation altered predictive importance.</p>
+</div>
+<table class="w-full">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-8 py-4 text-left text-xs font-bold uppercase tracking-widest text-on-surface-variant">Feature</th>
+<th class="px-8 py-4 text-left text-xs font-bold uppercase tracking-widest text-on-surface-variant">Biased Weight</th>
+<th class="px-8 py-4 text-left text-xs font-bold uppercase tracking-widest text-on-surface-variant">Fair Weight</th>
+<th class="px-8 py-4 text-right text-xs font-bold uppercase tracking-widest text-on-surface-variant">Shift</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-6 font-bold text-on-surface">Gender</td>
+<td class="px-8 py-6 text-red-600 font-mono">0.42</td>
+<td class="px-8 py-6 text-primary font-mono font-bold">0.00</td>
+<td class="px-8 py-6 text-right font-medium text-red-500">-100%</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-6 font-bold text-on-surface">CreditScore</td>
+<td class="px-8 py-6 font-mono text-on-surface-variant">0.18</td>
+<td class="px-8 py-6 text-emerald-600 font-mono font-bold">0.31</td>
+<td class="px-8 py-6 text-right font-medium text-emerald-500">+72%</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-6 font-bold text-on-surface">Income</td>
+<td class="px-8 py-6 font-mono text-on-surface-variant">0.15</td>
+<td class="px-8 py-6 text-emerald-600 font-mono font-bold">0.28</td>
+<td class="px-8 py-6 text-right font-medium text-emerald-500">+86%</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-8 py-6 font-bold text-on-surface">Education</td>
+<td class="px-8 py-6 font-mono text-on-surface-variant">0.12</td>
+<td class="px-8 py-6 text-on-surface font-mono">0.12</td>
+<td class="px-8 py-6 text-right font-medium text-on-surface-variant">Neutral</td>
+</tr>
+</tbody>
+</table>
+<div class="mt-auto bg-surface-container-low/40 p-6">
+<div class="flex items-center space-x-2 text-xs text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-sm">info</span>
+<span>Removing "Gender" allowed the model to recalibrate importance towards reliable financial indicators.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="ml-72 bg-[#faf8ff] flex flex-col md:flex-row justify-between items-center px-12 py-8 border-t border-[#c7c4d8]/15 gap-4">
+<div class="font-inter text-xs uppercase tracking-widest text-slate-400">© 2024 FairLens AI Ethics. All Rights Reserved.</div>
+<div class="flex space-x-8">
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">Ethics Policy</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">Methodology</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-[#3525cd] transition-colors" href="#">API Docs</a>
+<a class="font-inter text-xs uppercase tracking-widest text-[#3525cd] font-bold" href="#">Version 1.4.0-Stable</a>
+</div>
+</footer>
+</body></html>

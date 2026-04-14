@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Affected People - FairLens AI Bias Detector</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-surface-variant": "#464555", "secondary-fixed-dim": "#b7c8e1", "on-primary-container": "#dad7ff", "surface-bright": "#faf8ff", "surface-variant": "#dae2fd", "on-tertiary-fixed": "#40000c", "on-secondary-fixed": "#0b1c30", tertiary: "#950029", "on-secondary": "#ffffff", "secondary-fixed": "#d3e4fe", background: "#faf8ff", outline: "#777587", "on-secondary-container": "#54647a", "on-primary-fixed-variant": "#3323cc", "surface-container-high": "#e2e7ff", "surface-container-low": "#f2f3ff", "tertiary-fixed": "#ffdada", primary: "#3525cd", "on-error": "#ffffff", "primary-fixed": "#e2dfff", "error-container": "#ffdad6", "inverse-primary": "#c3c0ff", "surface-container": "#eaedff", "outline-variant": "#c7c4d8", "inverse-surface": "#283044", "tertiary-container": "#c20038", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", surface: "#faf8ff", "surface-tint": "#4d44e3", "primary-fixed-dim": "#c3c0ff", "surface-dim": "#d2d9f4", "inverse-on-surface": "#eef0ff", "surface-container-highest": "#dae2fd", "secondary-container": "#d0e1fb", "on-tertiary-container": "#ffd0d2", "on-secondary-fixed-variant": "#38485d", "on-tertiary-fixed-variant": "#920028", "on-background": "#131b2e", "on-primary": "#ffffff", secondary: "#505f76", "primary-container": "#4f46e5", "on-primary-fixed": "#0f0069", "on-tertiary": "#ffffff", error: "#ba1a1a", "on-surface": "#131b2e", "tertiary-fixed-dim": "#ffb3b6"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, fontFamily: {headline: ["Be Vietnam Pro"], body: ["Be Vietnam Pro"], label: ["Be Vietnam Pro"], display: "Be Vietnam Pro"}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen overflow-x-hidden">
+<!-- SideNavBar (Execution from JSON) -->
+<aside class="h-screen w-72 left-0 fixed border-r border-outline-variant/15 bg-surface-container-low flex flex-col p-6 space-y-2 z-40">
+<div class="mb-8 px-2">
+<span class="text-xs font-bold uppercase tracking-widest text-primary/60">System Integrity</span>
+<div class="flex items-center gap-3 mt-2">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="dashboard">dashboard</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-none">FairLens AI</p>
+<p class="text-[10px] text-on-surface-variant font-medium">V3.2 Active Audit</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-200/50 rounded-lg transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-medium text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-200/50 rounded-lg transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-medium text-sm">Models</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-primary rounded-lg shadow-sm font-semibold transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined" data-icon="gavel" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span class="font-medium text-sm">Ethics Ledger</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-200/50 rounded-lg transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-medium text-sm">Team Access</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-200/50 rounded-lg transition-transform duration-200 hover:translate-x-1 group" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-medium text-sm">History</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/15 space-y-1">
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-lg font-bold text-sm mb-4 shadow-md active:scale-95 transition-all">
+                New Bias Scan
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 hover:bg-slate-200/50 rounded-lg transition-all text-xs" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="policy">policy</span>
+<span>Legal</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-500 hover:bg-slate-200/50 rounded-lg transition-all text-xs" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 flex-1 min-h-screen bg-surface flex flex-col">
+<!-- TopAppBar (Execution from JSON) -->
+<header class="sticky top-0 z-30 flex justify-between items-center w-full px-8 py-4 bg-background shadow-[0_8px_32px_0_rgba(19,27,46,0.04)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-on-background tracking-tighter">FairLens</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-manrope tracking-tight font-bold text-lg text-on-surface/60 hover:text-primary transition-colors duration-200" href="#">Upload</a>
+<a class="font-manrope tracking-tight font-bold text-lg text-on-surface/60 hover:text-primary transition-colors duration-200" href="#">Audit Report</a>
+<a class="font-manrope tracking-tight font-bold text-lg text-primary border-b-2 border-primary pb-1 transition-colors duration-200" href="#">Affected People</a>
+<a class="font-manrope tracking-tight font-bold text-lg text-on-surface/60 hover:text-primary transition-colors duration-200" href="#">Remediation</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="Chief Ethics Officer Profile" class="w-full h-full object-cover" data-alt="professional portrait of a high-ranking corporate officer with focused expression, neutral office background, soft executive lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9Z99ohVu8ZvVCBGCBi7auXQG3xhb74aKKDdgZ9CZ_q7Lc1ZcsWGnpc95FgG0k_OmGJFKzVVsRXyYq4-zjhvKmWOYKktBNjJyL1Frx_z0vftncypRl--ocO4nt5K4q3RgYQQkxA-nxi36vvtQ7vAz31THHuwpcKrwvwWLpq58b4WCdOhb56dbbEzWfOESVF8DMhyHnn3TH4CL7-TNIzzR2_q3gksM_Cf_pFYVFYBAxxhGaW6okpwbqTVWbS8SMXaRY-ltzzjnBxx7n"/>
+</div>
+</div>
+</header>
+<!-- Page Hero / Context -->
+<section class="px-12 pt-12 pb-8">
+<div class="max-w-6xl">
+<h1 class="text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight mb-2">Impacted Individuals</h1>
+<div class="flex items-center gap-3 mb-4">
+<span class="bg-tertiary-container text-on-tertiary-fixed text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">High Exposure</span>
+<p class="font-headline font-bold text-xl text-primary">112 individuals were likely harmed by this bias</p>
+</div>
+<p class="text-on-surface-variant max-w-2xl text-lg leading-relaxed">
+                    These applicants were rejected by the biased model but qualify under a fair, attribute-blind evaluation. Review individual records to initiate manual re-evaluation.
+                </p>
+</div>
+</section>
+<!-- Filtering Section -->
+<section class="px-12 mb-8">
+<div class="flex flex-wrap items-center gap-3">
+<button class="px-6 py-2 bg-primary text-on-primary rounded-full font-semibold text-sm shadow-sm scale-102 transition-all">All</button>
+<button class="px-6 py-2 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full font-medium text-sm hover:bg-secondary-container transition-all">Female</button>
+<button class="px-6 py-2 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full font-medium text-sm hover:bg-secondary-container transition-all">Age 18-30</button>
+<button class="px-6 py-2 bg-secondary-fixed text-on-secondary-fixed-variant rounded-full font-medium text-sm hover:bg-secondary-container transition-all">High Credit Score</button>
+<div class="ml-auto flex items-center gap-2 text-on-surface-variant text-sm font-medium">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+<span>Sort by: Confidence</span>
+</div>
+</div>
+</section>
+<!-- Main Data Table -->
+<section class="px-12 mb-12 flex-1">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_8px_32px_0_rgba(19,27,46,0.04)] overflow-hidden border border-outline-variant/10">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface/50">ApplicantID</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface/50">Age</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface/50">Gender</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface/50">Income</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface/50">CreditScore</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface/50">Original Decision</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface/50">Bias Confidence</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface/50 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-247</td>
+<td class="px-6 py-4 text-sm font-medium">28</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$72,400</td>
+<td class="px-6 py-4 text-sm font-medium">742</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 91%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-251</td>
+<td class="px-6 py-4 text-sm font-medium">31</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$68,900</td>
+<td class="px-6 py-4 text-sm font-medium">710</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 88%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-255</td>
+<td class="px-6 py-4 text-sm font-medium">24</td>
+<td class="px-6 py-4 text-sm font-medium">Non-binary</td>
+<td class="px-6 py-4 text-sm font-medium">$55,000</td>
+<td class="px-6 py-4 text-sm font-medium">695</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 94%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<!-- Row 4-10 simplified for visual clarity -->
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-259</td>
+<td class="px-6 py-4 text-sm font-medium">45</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$102,000</td>
+<td class="px-6 py-4 text-sm font-medium">810</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 85%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-262</td>
+<td class="px-6 py-4 text-sm font-medium">29</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$61,200</td>
+<td class="px-6 py-4 text-sm font-medium">725</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 90%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-268</td>
+<td class="px-6 py-4 text-sm font-medium">22</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$48,000</td>
+<td class="px-6 py-4 text-sm font-medium">680</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 82%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-270</td>
+<td class="px-6 py-4 text-sm font-medium">35</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$88,500</td>
+<td class="px-6 py-4 text-sm font-medium">788</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 93%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-274</td>
+<td class="px-6 py-4 text-sm font-medium">27</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$65,000</td>
+<td class="px-6 py-4 text-sm font-medium">715</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 89%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-279</td>
+<td class="px-6 py-4 text-sm font-medium">32</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$79,200</td>
+<td class="px-6 py-4 text-sm font-medium">750</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 87%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="px-6 py-4 font-mono text-sm font-bold text-primary">#A-285</td>
+<td class="px-6 py-4 text-sm font-medium">30</td>
+<td class="px-6 py-4 text-sm font-medium">Female</td>
+<td class="px-6 py-4 text-sm font-medium">$67,500</td>
+<td class="px-6 py-4 text-sm font-medium">730</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-red-50 text-error text-[10px] font-bold px-2 py-0.5 rounded border border-error/20">Rejected ✗</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200">High — 92%</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary font-bold text-sm hover:underline flex items-center gap-1 ml-auto">Re-evaluate →</button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-6 py-4 bg-surface-container-low flex justify-between items-center text-xs font-medium text-on-surface-variant">
+<span>Showing 1-10 of 112 individuals</span>
+<div class="flex items-center gap-4">
+<button class="opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span>Page 1 of 11</span>
+<button class="hover:text-primary">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Global Export -->
+<div class="px-12 pb-12">
+<button class="flex items-center gap-2 bg-on-surface text-background px-6 py-3 rounded-lg font-bold text-sm hover:bg-on-surface/90 transition-all shadow-md">
+<span class="material-symbols-outlined text-xl" data-icon="download">download</span>
+                Download Affected List (CSV)
+            </button>
+</div>
+<!-- Footer (Execution from JSON) -->
+<footer class="mt-auto w-full py-8 border-t border-outline-variant/15 bg-background flex flex-col md:flex-row justify-between items-center px-12 gap-4">
+<div class="font-inter text-xs uppercase tracking-widest text-slate-400">
+                © 2024 FairLens AI Ethics. All Rights Reserved.
+            </div>
+<div class="flex gap-6">
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-primary transition-opacity" href="#">Ethics Policy</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-primary transition-opacity" href="#">Methodology</a>
+<a class="font-inter text-xs uppercase tracking-widest text-slate-400 hover:text-primary transition-opacity" href="#">API Docs</a>
+<span class="font-inter text-xs uppercase tracking-widest text-primary font-bold">Version 1.4.0-Stable</span>
+</div>
+</footer>
+</main>
+<!-- Drawer (Slide-in Panel) -->
+<!-- Note: Initialized as visible for screen representation, typically toggled via state -->
+<div class="fixed inset-y-0 right-0 w-[420px] bg-surface-container-high shadow-2xl z-50 border-l border-outline-variant/20 flex flex-col transform transition-transform duration-300">
+<div class="p-8 flex justify-between items-center">
+<h2 class="text-2xl font-extrabold tracking-tight">Profile Audit</h2>
+<button class="p-2 hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="px-8 flex-1 overflow-y-auto space-y-8">
+<!-- User Profile Card -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-4 mb-4">
+<img alt="Applicant Avatar" class="w-16 h-16 rounded-full object-cover" data-alt="close-up portrait of a young woman with natural light, soft bokeh, warm professional aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ3xNKjFvNZCtZbfbbSKby8neKOzo4uJ7mSXJGwavjltcxSxWgDIvFO-sz_krXhA8n_4DIzJsqht9NmQXM6BlUDPK9mr0A-Q-GOTjwqITpygpZDEbs6zNkD8lDaJ-uQey9YC0mUYweWDmXyZC1o0y58VoCDl9wPzADo5bpLovWjzcey0U9ULbVdqdrs_qd2Gtgyw9yV0eYK7u3y3L8ZLqvtl7mfrnM5Q8OkbsbQmdTwejvdFhd9TXBH8wy-d82bylrpUldExkaILGQ"/>
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface/40">Applicant #A-247</p>
+<h3 class="text-xl font-bold">Elena Rodriguez</h3>
+<p class="text-sm text-on-surface-variant">Senior Data Analyst • San Jose, CA</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant/5">
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-on-surface/40">Credit Score</p>
+<p class="text-lg font-bold">742</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest font-bold text-on-surface/40">Annual Income</p>
+<p class="text-lg font-bold">$72,400</p>
+</div>
+</div>
+</div>
+<!-- Decision Comparison -->
+<div class="space-y-4">
+<h4 class="text-xs font-bold uppercase tracking-widest text-on-surface/40">Decision Logic Shift</h4>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-red-50 p-4 rounded-lg border border-red-100">
+<p class="text-[10px] font-bold text-red-600 uppercase mb-1">Biased Output</p>
+<p class="text-lg font-black text-red-900">REJECTED</p>
+<p class="text-xs text-red-700 mt-1 italic">Weight: Demographic Anchor</p>
+</div>
+<div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+<p class="text-[10px] font-bold text-emerald-600 uppercase mb-1">FairLens Audit</p>
+<p class="text-lg font-black text-emerald-900">APPROVED</p>
+<p class="text-xs text-emerald-700 mt-1 italic">Weight: Financial History</p>
+</div>
+</div>
+</div>
+<!-- Score Bar -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<h4 class="text-xs font-bold uppercase tracking-widest text-on-surface/40">Equivalency Score</h4>
+<span class="text-2xl font-black text-primary tracking-tighter">0.79 <span class="text-sm font-medium text-on-surface/40 text-black tracking-normal">/ 1.0</span></span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden relative">
+<!-- Original Mark -->
+<div class="absolute top-0 bottom-0 left-[31%] w-1 bg-red-500 z-10 shadow-[0_0_8px_rgba(239,68,68,0.5)]"></div>
+<!-- Fair Fill -->
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full" style="width: 79%;"></div>
+</div>
+<div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-on-surface/40">
+<span>Biased: 0.31</span>
+<span>Fair: 0.79</span>
+</div>
+</div>
+</div>
+<div class="p-8 mt-auto border-t border-outline-variant/10">
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-bold shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+                Mark as Reconsidered
+            </button>
+<p class="text-[10px] text-center text-on-surface-variant mt-4 leading-tight">
+                This action will update the Ethics Ledger and notify the operations team for manual override.
+            </p>
+</div>
+</div>
+<!-- Backdrop for Drawer -->
+<div class="fixed inset-0 bg-on-surface/20 backdrop-blur-sm z-40"></div>
+</body></html>
