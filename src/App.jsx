@@ -24,6 +24,11 @@ function App() {
   const [user, setUser] = useState(null);
   const [authModal, setAuthModal] = useState(null); // null | 'login' | 'signup'
 
+  // Post-auth transition state
+  const [transitioning, setTransitioning] = useState(false);
+  const [transitionPhase, setTransitionPhase] = useState('idle'); // idle | enter | greeting | exit
+  const [dashboardReady, setDashboardReady] = useState(false);
+
   const [currentView, setCurrentView] = useState('upload');
   const [dataset, setDataset] = useState([]);
   const [auditResults, setAuditResults] = useState(null);
@@ -112,8 +117,27 @@ function App() {
   // ── Auth handlers ──
   const handleAuth = (userData) => {
     setUser(userData);
-    setIsAuthenticated(true);
     setAuthModal(null);
+
+    // Start transition sequence
+    setTransitioning(true);
+    setTransitionPhase('enter');
+
+    // Phase 1: Fade in overlay (300ms)
+    setTimeout(() => setTransitionPhase('greeting'), 300);
+
+    // Phase 2: Show greeting, then begin exit (1400ms total)
+    setTimeout(() => {
+      setIsAuthenticated(true);
+      setTransitionPhase('exit');
+    }, 1600);
+
+    // Phase 3: Fade out overlay, reveal dashboard (2100ms total)
+    setTimeout(() => {
+      setTransitioning(false);
+      setTransitionPhase('idle');
+      setDashboardReady(true);
+    }, 2200);
   };
 
   const handleLogout = () => {
@@ -122,6 +146,7 @@ function App() {
     setDataset([]);
     setAuditResults(null);
     setCurrentView('upload');
+    setDashboardReady(false);
   };
 
   const renderView = () => {
@@ -157,6 +182,74 @@ function App() {
   ];
 
   // ════════════════════════════════════════════
+  // TRANSITION OVERLAY — Post sign-in animation
+  // ════════════════════════════════════════════
+  const transitionOverlay = transitioning ? createPortal(
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 999999,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#faf8ff',
+        transition: 'opacity 500ms ease',
+        opacity: transitionPhase === 'enter' ? 0 : transitionPhase === 'exit' ? 0 : 1,
+      }}
+    >
+      {/* Accent line top */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+        background: 'linear-gradient(90deg, transparent, #3525cd, transparent)',
+      }} />
+
+      {/* Logo + greeting */}
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px',
+        transition: 'opacity 400ms ease, transform 400ms ease',
+        opacity: transitionPhase === 'greeting' ? 1 : 0,
+        transform: transitionPhase === 'greeting' ? 'translateY(0)' : 'translateY(12px)',
+      }}>
+        <div style={{
+          width: '48px', height: '48px', borderRadius: '12px',
+          background: '#3525cd', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <span className="material-symbols-outlined text-white !text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>balance</span>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <h2 style={{
+            fontFamily: 'Manrope, sans-serif', fontWeight: 800,
+            fontSize: '24px', color: '#131b2e', margin: '0 0 6px',
+          }}>
+            Welcome{user?.name ? `, ${user.name.split(' ')[0]}` : ''}
+          </h2>
+          <p style={{
+            fontFamily: 'Inter, sans-serif', fontSize: '14px',
+            color: '#777587', margin: 0,
+          }}>
+            Setting up your workspace…
+          </p>
+        </div>
+
+        {/* Progress bar */}
+        <div style={{
+          width: '180px', height: '3px', borderRadius: '2px',
+          background: '#e2e7ff', overflow: 'hidden', marginTop: '8px',
+        }}>
+          <div style={{
+            height: '100%', borderRadius: '2px', background: '#3525cd',
+            transition: 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+            width: transitionPhase === 'greeting' ? '100%' : '0%',
+          }} />
+        </div>
+      </div>
+    </div>,
+    document.body
+  ) : null;
+
+  // ════════════════════════════════════════════
   // UNAUTHENTICATED — Show Landing Page
   // ════════════════════════════════════════════
   if (!isAuthenticated) {
@@ -173,6 +266,7 @@ function App() {
             onAuth={handleAuth}
           />
         )}
+        {transitionOverlay}
       </>
     );
   }
@@ -181,7 +275,14 @@ function App() {
   // AUTHENTICATED — Show Dashboard
   // ════════════════════════════════════════════
   return (
-    <div className="bg-surface font-body text-on-surface min-h-screen">
+    <div
+      className="bg-surface font-body text-on-surface min-h-screen"
+      style={{
+        transition: 'opacity 600ms ease, transform 600ms ease',
+        opacity: dashboardReady ? 1 : 0,
+        transform: dashboardReady ? 'translateY(0)' : 'translateY(16px)',
+      }}
+    >
 
       {/* ═══ TopNavBar — fixed, 64px tall ═══ */}
       <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[#faf8ff] shadow-[0_8px_32px_0_rgba(19,27,46,0.04)]">
@@ -357,6 +458,8 @@ function App() {
         </div>,
         document.body
       )}
+
+      {transitionOverlay}
     </div>
   );
 }
