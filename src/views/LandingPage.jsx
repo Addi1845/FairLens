@@ -1,247 +1,268 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function LandingPage({ onLogin, onSignup }) {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const heroRef = useRef(null);
 
   useEffect(() => {
-    setIsVisible(true);
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight });
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTestimonial(prev => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const features = [
-    { icon: 'analytics', title: 'Forensic Analysis', desc: 'Statistical bias detection using point-biserial correlation and confusion matrices' },
-    { icon: 'shield', title: 'Ethical Compliance', desc: 'Automated audits against EEOC, EU AI Act, and emerging global fairness standards' },
-    { icon: 'group', title: 'Affected Populations', desc: 'Identify and quantify the human impact of algorithmic decisions across demographics' },
-    { icon: 'auto_fix_high', title: 'Smart Remediation', desc: 'AI-powered mitigation strategies to re-balance outcomes without sacrificing accuracy' },
-    { icon: 'upload_file', title: 'CSV Ingestion', desc: 'Upload any dataset — auto-detects columns, protected attributes, and decision labels' },
-    { icon: 'history', title: 'Audit Trail', desc: 'Full scan history with versioned reports for regulatory compliance and documentation' },
+    {
+      icon: 'analytics',
+      title: 'Statistical Bias Detection',
+      desc: 'Point-biserial correlation analysis, confusion matrices, and disparity ratio calculations across every protected attribute in your dataset.',
+    },
+    {
+      icon: 'gavel',
+      title: 'Regulatory Compliance',
+      desc: 'Automated checks against EEOC guidelines, EU AI Act requirements, and emerging fairness standards — always up to date.',
+    },
+    {
+      icon: 'group',
+      title: 'Impact Assessment',
+      desc: 'See exactly who is affected. Drill into demographic breakdowns, approval rates, and score distributions per group.',
+    },
+    {
+      icon: 'auto_fix_high',
+      title: 'Remediation Engine',
+      desc: 'One-click mitigation strategies that re-balance outcomes. Preview the effect before applying changes.',
+    },
+    {
+      icon: 'upload_file',
+      title: 'Drag & Drop Ingestion',
+      desc: 'CSV upload with automatic column detection. We identify protected attributes, decision labels, and score fields for you.',
+    },
+    {
+      icon: 'history',
+      title: 'Versioned Audit Trail',
+      desc: 'Every scan is logged with full metadata. Compare runs, track improvements, and export compliance reports.',
+    },
   ];
 
-  const stats = [
-    { value: '99.2%', label: 'Detection Accuracy' },
-    { value: '< 3s', label: 'Analysis Time' },
-    { value: '50+', label: 'Fairness Metrics' },
-    { value: '10K+', label: 'Audits Completed' },
+  const testimonials = [
+    {
+      quote: "FairLens caught a 23% approval gap in our lending model that three internal reviews missed. It's now part of our quarterly compliance workflow.",
+      name: 'Priya Sharma',
+      role: 'Head of ML Governance, Meridian Finance',
+    },
+    {
+      quote: "We used to spend weeks on fairness audits. FairLens does it in seconds and the reports are more thorough than what our team produced manually.",
+      name: 'Marcus Chen',
+      role: 'VP of Engineering, Lattice Health',
+    },
+    {
+      quote: "The remediation engine is what sold us. Being able to preview the effect of bias corrections before applying them — that's a game changer.",
+      name: 'Amara Okafor',
+      role: 'Chief Ethics Officer, Kova AI',
+    },
+  ];
+
+  const steps = [
+    { num: '01', title: 'Upload your dataset', desc: 'Drop a CSV file or connect your data source. FairLens auto-detects columns and protected attributes.' },
+    { num: '02', title: 'Run the audit', desc: 'Our engine runs 50+ fairness metrics, flags disparate impact, and surfaces statistical bias patterns.' },
+    { num: '03', title: 'Review & remediate', desc: 'Explore interactive reports, identify affected populations, and apply one-click remediation strategies.' },
   ];
 
   return (
-    <div className="min-h-screen bg-[#06080f] text-white overflow-hidden relative">
+    <div className="min-h-screen bg-[#faf8ff] text-[#131b2e] overflow-hidden">
 
-      {/* ═══ Animated Background ═══ */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Primary gradient orb */}
-        <div
-          className="absolute w-[800px] h-[800px] rounded-full opacity-20"
-          style={{
-            background: 'radial-gradient(circle, #3525cd 0%, transparent 70%)',
-            left: `${20 + mousePos.x * 10}%`,
-            top: `${-10 + mousePos.y * 10}%`,
-            transition: 'left 3s ease-out, top 3s ease-out',
-          }}
-        />
-        {/* Secondary accent orb */}
-        <div
-          className="absolute w-[600px] h-[600px] rounded-full opacity-15"
-          style={{
-            background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)',
-            right: `${10 + mousePos.x * 8}%`,
-            bottom: `${5 + mousePos.y * 8}%`,
-            transition: 'right 4s ease-out, bottom 4s ease-out',
-          }}
-        />
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
-          }}
-        />
-        {/* Floating particles */}
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-[#3525cd] rounded-full animate-pulse"
-            style={{
-              left: `${15 + i * 15}%`,
-              top: `${20 + (i % 3) * 25}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${2 + i * 0.5}s`,
-              opacity: 0.4 + (i * 0.1),
-              width: `${3 + i}px`,
-              height: `${3 + i}px`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* ═══ Top Navigation ═══ */}
-      <nav className="relative z-50 flex items-center justify-between px-8 md:px-16 py-6">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#3525cd] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-[#3525cd]/30">
-            <span className="material-symbols-outlined text-white !text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>balance</span>
+      {/* ═══ Navigation ═══ */}
+      <nav
+        className="sticky top-0 z-50 transition-all duration-300"
+        style={{
+          backgroundColor: scrollY > 40 ? 'rgba(250,248,255,0.92)' : 'transparent',
+          backdropFilter: scrollY > 40 ? 'blur(16px)' : 'none',
+          borderBottom: scrollY > 40 ? '1px solid rgba(199,196,216,0.15)' : '1px solid transparent',
+        }}
+      >
+        <div className="max-w-6xl mx-auto flex items-center justify-between px-6 md:px-10 py-5">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[#3525cd] flex items-center justify-center">
+              <span className="material-symbols-outlined text-white !text-base" style={{ fontVariationSettings: "'FILL' 1" }}>balance</span>
+            </div>
+            <span className="text-lg font-extrabold tracking-tight font-manrope text-[#131b2e]">FairLens</span>
           </div>
-          <span className="text-xl font-extrabold tracking-tight font-manrope">FairLens</span>
-        </div>
 
-        <div className="hidden md:flex items-center gap-10">
-          <a href="#features" className="text-sm font-medium text-white/60 hover:text-white transition-colors font-inter">Features</a>
-          <a href="#metrics" className="text-sm font-medium text-white/60 hover:text-white transition-colors font-inter">Metrics</a>
-          <a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors font-inter">Docs</a>
-          <a href="#" className="text-sm font-medium text-white/60 hover:text-white transition-colors font-inter">Pricing</a>
-        </div>
+          <div className="hidden md:flex items-center gap-8">
+            <a href="#how-it-works" className="text-sm font-medium text-[#464555] hover:text-[#3525cd] transition-colors font-inter">How it works</a>
+            <a href="#features" className="text-sm font-medium text-[#464555] hover:text-[#3525cd] transition-colors font-inter">Features</a>
+            <a href="#testimonials" className="text-sm font-medium text-[#464555] hover:text-[#3525cd] transition-colors font-inter">Testimonials</a>
+            <a href="#" className="text-sm font-medium text-[#464555] hover:text-[#3525cd] transition-colors font-inter">Docs</a>
+          </div>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onLogin}
-            className="px-5 py-2.5 text-sm font-semibold text-white/80 hover:text-white border border-white/10 hover:border-white/25 rounded-xl transition-all duration-300 font-inter backdrop-blur-sm"
-          >
-            Sign In
-          </button>
-          <button
-            onClick={onSignup}
-            className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-[#3525cd] to-[#5b4edc] hover:from-[#4535dd] hover:to-[#6b5eec] rounded-xl shadow-lg shadow-[#3525cd]/30 hover:shadow-[#3525cd]/50 transition-all duration-300 hover:-translate-y-0.5 font-inter"
-          >
-            Get Started
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onLogin}
+              className="px-4 py-2 text-sm font-semibold text-[#464555] hover:text-[#3525cd] transition-colors font-inter"
+            >
+              Sign in
+            </button>
+            <button
+              onClick={onSignup}
+              className="px-5 py-2.5 text-sm font-semibold text-white bg-[#3525cd] hover:bg-[#2a1da8] rounded-lg transition-all duration-200 font-inter"
+            >
+              Get started
+            </button>
+          </div>
         </div>
       </nav>
 
       {/* ═══ Hero Section ═══ */}
-      <section className="relative z-10 flex flex-col items-center text-center px-6 pt-16 md:pt-28 pb-20">
-        {/* Badge */}
-        <div
-          className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#3525cd]/30 bg-[#3525cd]/10 mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-        >
-          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-semibold text-[#a5a0f3] tracking-wider uppercase font-inter">V3.2 — Now with Auto-Detection</span>
-        </div>
+      <section ref={heroRef} className="relative pt-16 md:pt-24 pb-20 px-6">
+        {/* Subtle background shape — organic, not grid/particles */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.04] pointer-events-none"
+          style={{ background: 'radial-gradient(circle, #3525cd, transparent 70%)' }}
+        />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-[0.03] pointer-events-none"
+          style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }}
+        />
 
-        {/* Main Headline */}
-        <h1
-          className={`text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] max-w-5xl font-manrope transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
-          <span className="text-white">Audit AI.</span>
-          <br />
-          <span className="bg-gradient-to-r from-[#3525cd] via-[#7c3aed] to-[#a78bfa] bg-clip-text text-transparent">Protect People.</span>
-        </h1>
-
-        {/* Subheadline */}
-        <p
-          className={`text-lg md:text-xl text-white/50 max-w-2xl mt-6 leading-relaxed font-inter transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
-          The forensic-grade bias detection engine that scrutinizes your ML models, quantifies disparate impact, and generates actionable remediation — in seconds.
-        </p>
-
-        {/* CTA Buttons */}
-        <div
-          className={`flex flex-col sm:flex-row items-center gap-4 mt-10 transition-all duration-1000 delay-[600ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
-          <button
-            onClick={onSignup}
-            className="group px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-[#3525cd] to-[#5b4edc] rounded-2xl shadow-[0_8px_32px_rgba(53,37,205,0.4)] hover:shadow-[0_16px_48px_rgba(53,37,205,0.6)] transition-all duration-300 hover:-translate-y-1 flex items-center gap-3 font-manrope"
-          >
-            Start Free Audit
-            <span className="material-symbols-outlined !text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
-          </button>
-          <button
-            onClick={onLogin}
-            className="px-8 py-4 text-base font-bold text-white/70 hover:text-white border border-white/10 hover:border-white/20 rounded-2xl backdrop-blur-sm transition-all duration-300 flex items-center gap-3 font-manrope"
-          >
-            <span className="material-symbols-outlined !text-xl">play_circle</span>
-            Watch Demo
-          </button>
-        </div>
-
-        {/* Trust indicators */}
-        <div
-          className={`flex flex-wrap items-center justify-center gap-6 mt-14 transition-all duration-1000 delay-[800ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
-          <div className="flex items-center gap-2 text-white/30 text-xs font-inter">
-            <span className="material-symbols-outlined !text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-            SOC 2 Compliant
-          </div>
-          <div className="w-1 h-1 rounded-full bg-white/15" />
-          <div className="flex items-center gap-2 text-white/30 text-xs font-inter">
-            <span className="material-symbols-outlined !text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
-            End-to-End Encrypted
-          </div>
-          <div className="w-1 h-1 rounded-full bg-white/15" />
-          <div className="flex items-center gap-2 text-white/30 text-xs font-inter">
-            <span className="material-symbols-outlined !text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>cloud_done</span>
-            No Data Stored
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ Floating Dashboard Preview ═══ */}
-      <section
-        className={`relative z-10 px-6 md:px-16 mb-24 transition-all duration-1000 delay-[1000ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
-      >
-        <div className="max-w-5xl mx-auto relative">
-          <div className="absolute -inset-4 bg-gradient-to-r from-[#3525cd]/20 via-[#7c3aed]/10 to-[#3525cd]/20 rounded-3xl blur-2xl" />
-          <div className="relative bg-[#0e1120] border border-white/10 rounded-2xl overflow-hidden shadow-2xl shadow-black/50">
-            {/* Mock browser bar */}
-            <div className="flex items-center gap-2 px-4 py-3 bg-[#131727] border-b border-white/5">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                <div className="w-3 h-3 rounded-full bg-[#28c840]" />
-              </div>
-              <div className="flex-1 mx-4">
-                <div className="bg-[#1a1e32] rounded-lg px-4 py-1.5 text-xs text-white/30 font-inter text-center">app.fairlens.ai/audit/report</div>
-              </div>
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-3xl">
+            {/* Eyebrow */}
+            <div
+              className={`inline-flex items-center gap-2 mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}
+            >
+              <span className="text-xs font-semibold text-[#3525cd] tracking-wider uppercase font-inter bg-[#3525cd]/[0.06] px-3 py-1 rounded-md">New in v3.2</span>
+              <span className="text-xs text-[#777587] font-inter">Auto-detection for protected attributes</span>
             </div>
-            {/* Dashboard mockup */}
-            <div className="p-6 md:p-8 grid grid-cols-12 gap-4">
-              {/* Sidebar mock */}
-              <div className="col-span-3 hidden md:block space-y-3">
-                <div className="h-8 bg-[#1a1e32] rounded-lg w-3/4" />
-                <div className="space-y-2 mt-4">
-                  {['Dashboard', 'Models', 'Ethics Ledger', 'Team Access'].map((item, i) => (
-                    <div key={item} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-inter ${i === 0 ? 'bg-[#3525cd]/20 text-[#a5a0f3]' : 'text-white/30'}`}>
-                      <div className={`w-4 h-4 rounded ${i === 0 ? 'bg-[#3525cd]/40' : 'bg-white/10'}`} />
-                      {item}
-                    </div>
-                  ))}
+
+            {/* Headline */}
+            <h1
+              className={`text-[2.75rem] md:text-[3.5rem] lg:text-[4rem] font-extrabold leading-[1.1] font-manrope transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            >
+              Know if your AI
+              <br />
+              is being{' '}
+              <span className="text-[#3525cd]">fair</span>
+            </h1>
+
+            {/* Subheadline */}
+            <p
+              className={`text-lg text-[#464555] max-w-xl mt-5 leading-relaxed font-inter transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            >
+              Upload a dataset, get a forensic bias report in seconds. FairLens detects disparate impact across demographics and helps you fix it — before it causes harm.
+            </p>
+
+            {/* CTAs */}
+            <div
+              className={`flex flex-col sm:flex-row items-start gap-3 mt-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            >
+              <button
+                onClick={onSignup}
+                className="group px-6 py-3.5 text-sm font-bold text-white bg-[#3525cd] hover:bg-[#2a1da8] rounded-lg transition-all duration-200 flex items-center gap-2 font-inter"
+              >
+                Start a free audit
+                <span className="material-symbols-outlined !text-lg group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+              </button>
+              <button
+                onClick={onLogin}
+                className="px-6 py-3.5 text-sm font-semibold text-[#464555] hover:text-[#131b2e] border border-[#c7c4d8]/40 hover:border-[#c7c4d8]/70 bg-white rounded-lg transition-all duration-200 flex items-center gap-2 font-inter"
+              >
+                <span className="material-symbols-outlined !text-lg text-[#777587]">play_circle</span>
+                Watch the demo
+              </button>
+            </div>
+
+            {/* Trust line */}
+            <div
+              className={`flex flex-wrap items-center gap-5 mt-10 transition-all duration-700 delay-[400ms] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            >
+              <span className="text-xs text-[#777587] font-inter flex items-center gap-1.5">
+                <span className="material-symbols-outlined !text-sm text-[#777587]" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+                SOC 2 Compliant
+              </span>
+              <span className="text-[#c7c4d8]">·</span>
+              <span className="text-xs text-[#777587] font-inter flex items-center gap-1.5">
+                <span className="material-symbols-outlined !text-sm text-[#777587]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
+                End-to-end encrypted
+              </span>
+              <span className="text-[#c7c4d8]">·</span>
+              <span className="text-xs text-[#777587] font-inter flex items-center gap-1.5">
+                <span className="material-symbols-outlined !text-sm text-[#777587]" style={{ fontVariationSettings: "'FILL' 1" }}>cloud_done</span>
+                No data stored
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Dashboard preview card — floats on the right on desktop */}
+        <div
+          className={`max-w-6xl mx-auto mt-14 md:mt-[-280px] md:ml-auto transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+        >
+          <div className="md:max-w-[520px] md:ml-auto relative">
+            <div className="bg-white rounded-xl border border-[#c7c4d8]/20 shadow-[0_4px_24px_rgba(19,27,46,0.06)] overflow-hidden">
+              {/* Browser chrome */}
+              <div className="flex items-center gap-2 px-4 py-2.5 bg-[#f2f3ff] border-b border-[#c7c4d8]/15">
+                <div className="flex gap-1.5">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#c7c4d8]/40" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#c7c4d8]/40" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#c7c4d8]/40" />
+                </div>
+                <div className="flex-1 mx-3">
+                  <div className="bg-white rounded px-3 py-1 text-[10px] text-[#777587] font-inter text-center border border-[#c7c4d8]/15">app.fairlens.ai/audit</div>
                 </div>
               </div>
-              {/* Main content mock */}
-              <div className="col-span-12 md:col-span-9 space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="h-6 bg-[#1a1e32] rounded w-48" />
-                  <div className="h-8 bg-[#3525cd]/30 rounded-lg w-28" />
-                </div>
-                {/* Stat cards */}
+              {/* Mock dashboard content */}
+              <div className="p-5 space-y-4">
+                {/* Stat row */}
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { label: 'Bias Score', value: '0.73', color: '#ef4444' },
-                    { label: 'Disparate Impact', value: '0.56', color: '#f59e0b' },
-                    { label: 'Records Scanned', value: '2,847', color: '#3525cd' },
-                  ].map((stat) => (
-                    <div key={stat.label} className="bg-[#131727] border border-white/5 rounded-xl p-4">
-                      <p className="text-[10px] text-white/40 uppercase tracking-wider font-inter">{stat.label}</p>
-                      <p className="text-xl font-bold mt-1 font-manrope" style={{ color: stat.color }}>{stat.value}</p>
+                    { label: 'Bias Score', value: '0.73', color: '#ef4444', bg: '#fef2f2' },
+                    { label: 'Disparity Ratio', value: '0.56', color: '#d97706', bg: '#fffbeb' },
+                    { label: 'Records', value: '2,847', color: '#3525cd', bg: '#f2f3ff' },
+                  ].map((s) => (
+                    <div key={s.label} className="rounded-lg p-3 border border-[#c7c4d8]/10" style={{ backgroundColor: s.bg }}>
+                      <p className="text-[9px] text-[#777587] uppercase tracking-wider font-inter font-medium">{s.label}</p>
+                      <p className="text-lg font-bold mt-0.5 font-manrope" style={{ color: s.color }}>{s.value}</p>
                     </div>
                   ))}
                 </div>
-                {/* Chart placeholder */}
-                <div className="bg-[#131727] border border-white/5 rounded-xl p-4 h-32 flex items-end gap-1">
-                  {[40, 65, 35, 80, 55, 70, 45, 90, 60, 75, 50, 85, 40, 70, 55].map((h, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 rounded-t transition-all"
-                      style={{
-                        height: `${h}%`,
-                        background: h > 60 ? 'linear-gradient(to top, #3525cd, #7c3aed)' : 'rgba(53,37,205,0.2)',
-                      }}
-                    />
-                  ))}
+                {/* Chart */}
+                <div className="bg-[#faf8ff] rounded-lg p-4 border border-[#c7c4d8]/10">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-semibold text-[#464555] uppercase tracking-wider font-inter">Approval Rate by Group</span>
+                    <span className="text-[9px] text-[#777587] font-inter">Last 30 days</span>
+                  </div>
+                  <div className="flex items-end gap-[3px] h-16">
+                    {[42, 68, 38, 72, 55, 70, 48, 78, 62, 74, 52, 80, 44, 71, 58, 65].map((h, i) => (
+                      <div
+                        key={i}
+                        className="flex-1 rounded-t-sm"
+                        style={{
+                          height: `${h}%`,
+                          backgroundColor: i % 2 === 0 ? '#3525cd' : '#c7c4d8',
+                          opacity: i % 2 === 0 ? 0.8 : 0.35,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className="flex justify-between mt-2">
+                    <span className="text-[8px] text-[#777587] font-inter flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-sm bg-[#3525cd]/80 inline-block" /> Group A
+                    </span>
+                    <span className="text-[8px] text-[#777587] font-inter flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-sm bg-[#c7c4d8]/50 inline-block" /> Group B
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -249,93 +270,183 @@ export default function LandingPage({ onLogin, onSignup }) {
         </div>
       </section>
 
-      {/* ═══ Stats Bar ═══ */}
-      <section id="metrics" className="relative z-10 border-y border-white/5 bg-[#0a0d18]/80 backdrop-blur-xl">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-white/5">
-          {stats.map((stat) => (
-            <div key={stat.label} className="py-10 px-6 text-center">
-              <p className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent font-manrope">{stat.value}</p>
-              <p className="text-xs text-white/35 mt-2 uppercase tracking-widest font-inter">{stat.label}</p>
-            </div>
-          ))}
+      {/* ═══ Logos / Social Proof Strip ═══ */}
+      <section className="border-y border-[#c7c4d8]/15 bg-white">
+        <div className="max-w-6xl mx-auto px-6 md:px-10 py-10 flex flex-col items-center">
+          <p className="text-xs text-[#777587] uppercase tracking-[0.2em] font-inter font-medium mb-6">Trusted by teams at</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-4">
+            {['Meridian Finance', 'Lattice Health', 'Kova AI', 'Clearpath Analytics', 'Oden Labs'].map((name) => (
+              <span key={name} className="text-sm font-bold text-[#c7c4d8] font-manrope tracking-tight select-none">{name}</span>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ═══ Features Grid ═══ */}
-      <section id="features" className="relative z-10 py-24 px-6 md:px-16">
+      {/* ═══ How It Works ═══ */}
+      <section id="how-it-works" className="py-20 md:py-28 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-[#7c3aed] font-semibold font-inter mb-4">Capabilities</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold font-manrope">
-              Everything you need to
-              <br />
-              <span className="bg-gradient-to-r from-[#3525cd] to-[#a78bfa] bg-clip-text text-transparent">audit with confidence</span>
+          <div className="max-w-lg mb-14">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#3525cd] font-semibold font-inter mb-3">How it works</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold font-manrope leading-tight">
+              Three steps to a<br />fairer model
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((feat, i) => (
-              <div
-                key={feat.title}
-                className="group relative bg-[#0e1120] border border-white/5 hover:border-[#3525cd]/30 rounded-2xl p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#3525cd]/5"
-              >
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#3525cd]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10">
-                  <div className="w-11 h-11 rounded-xl bg-[#3525cd]/10 border border-[#3525cd]/20 flex items-center justify-center mb-5 group-hover:bg-[#3525cd]/20 transition-colors">
-                    <span className="material-symbols-outlined text-[#7c3aed] !text-xl">{feat.icon}</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-2 font-manrope">{feat.title}</h3>
-                  <p className="text-sm text-white/40 leading-relaxed font-inter">{feat.desc}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {steps.map((step, i) => (
+              <div key={step.num} className="relative">
+                <div className="mb-4">
+                  <span className="text-5xl font-extrabold text-[#3525cd]/[0.07] font-manrope select-none">{step.num}</span>
                 </div>
+                <h3 className="text-lg font-bold text-[#131b2e] mb-2 font-manrope">{step.title}</h3>
+                <p className="text-sm text-[#464555] leading-relaxed font-inter">{step.desc}</p>
+                {i < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-8 right-0 translate-x-1/2 text-[#c7c4d8]">
+                    <span className="material-symbols-outlined !text-xl">arrow_forward</span>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ CTA Section ═══ */}
-      <section className="relative z-10 py-24 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="relative">
-            <div className="absolute -inset-8 bg-gradient-to-r from-[#3525cd]/10 to-[#7c3aed]/10 rounded-3xl blur-3xl" />
-            <div className="relative bg-[#0e1120] border border-white/10 rounded-3xl p-12 md:p-16">
-              <h2 className="text-3xl md:text-4xl font-extrabold font-manrope mb-4">Ready to audit your AI?</h2>
-              <p className="text-white/40 font-inter mb-8 max-w-md mx-auto">Upload a CSV. Get a forensic bias report in under 3 seconds. No credit card, no setup, no data stored.</p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button
-                  onClick={onSignup}
-                  className="px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-[#3525cd] to-[#5b4edc] rounded-2xl shadow-[0_8px_32px_rgba(53,37,205,0.4)] hover:shadow-[0_16px_48px_rgba(53,37,205,0.6)] transition-all duration-300 hover:-translate-y-1 font-manrope"
-                >
-                  Create Free Account
-                </button>
-                <button
-                  onClick={onLogin}
-                  className="px-8 py-4 text-base font-semibold text-white/60 hover:text-white transition-colors font-inter flex items-center gap-2"
-                >
-                  Already have an account?
-                  <span className="material-symbols-outlined !text-lg">arrow_forward</span>
-                </button>
+      {/* ═══ Features Grid ═══ */}
+      <section id="features" className="py-20 md:py-28 px-6 bg-[#f2f3ff]/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-lg mb-14">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#3525cd] font-semibold font-inter mb-3">Capabilities</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold font-manrope leading-tight">
+              Everything you need to<br />audit with confidence
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {features.map((feat) => (
+              <div
+                key={feat.title}
+                className="group bg-white border border-[#c7c4d8]/15 rounded-xl p-6 transition-all duration-300 hover:border-[#3525cd]/20 hover:shadow-[0_2px_16px_rgba(53,37,205,0.06)]"
+              >
+                <div className="w-10 h-10 rounded-lg bg-[#f2f3ff] border border-[#c7c4d8]/15 flex items-center justify-center mb-4 group-hover:bg-[#3525cd]/[0.08] transition-colors">
+                  <span className="material-symbols-outlined text-[#3525cd] !text-xl">{feat.icon}</span>
+                </div>
+                <h3 className="text-base font-bold text-[#131b2e] mb-2 font-manrope">{feat.title}</h3>
+                <p className="text-sm text-[#464555] leading-relaxed font-inter">{feat.desc}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ Stats Strip ═══ */}
+      <section className="border-y border-[#c7c4d8]/15 bg-white">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4">
+          {[
+            { value: '99.2%', label: 'Detection Accuracy' },
+            { value: '< 3s', label: 'Analysis Time' },
+            { value: '50+', label: 'Fairness Metrics' },
+            { value: '10K+', label: 'Audits Completed' },
+          ].map((stat, i) => (
+            <div key={stat.label} className={`py-10 px-6 text-center ${i < 3 ? 'border-r border-[#c7c4d8]/10' : ''}`}>
+              <p className="text-3xl md:text-4xl font-extrabold text-[#131b2e] font-manrope">{stat.value}</p>
+              <p className="text-xs text-[#777587] mt-2 uppercase tracking-widest font-inter">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══ Testimonials ═══ */}
+      <section id="testimonials" className="py-20 md:py-28 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-xs uppercase tracking-[0.2em] text-[#3525cd] font-semibold font-inter mb-3">What people say</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold font-manrope leading-tight mb-14">
+            Used by teams who take<br />fairness seriously
+          </h2>
+
+          <div className="relative min-h-[200px]">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-500"
+                style={{
+                  opacity: activeTestimonial === i ? 1 : 0,
+                  transform: activeTestimonial === i ? 'translateY(0)' : 'translateY(8px)',
+                  pointerEvents: activeTestimonial === i ? 'auto' : 'none',
+                }}
+              >
+                <blockquote className="text-lg md:text-xl text-[#131b2e] leading-relaxed font-inter italic mb-6 max-w-2xl">
+                  "{t.quote}"
+                </blockquote>
+                <div>
+                  <p className="text-sm font-bold text-[#131b2e] font-manrope">{t.name}</p>
+                  <p className="text-xs text-[#777587] font-inter mt-0.5">{t.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Dots */}
+          <div className="flex items-center justify-center gap-2 mt-8">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveTestimonial(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  activeTestimonial === i ? 'bg-[#3525cd] w-5' : 'bg-[#c7c4d8]/40 hover:bg-[#c7c4d8]'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ Final CTA ═══ */}
+      <section className="py-20 md:py-28 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-[#131b2e] rounded-2xl p-10 md:p-14 text-center relative overflow-hidden">
+            {/* Subtle accent */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#3525cd] to-transparent" />
+
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white font-manrope mb-3">
+              Ready to audit your AI?
+            </h2>
+            <p className="text-sm text-white/50 font-inter mb-8 max-w-md mx-auto leading-relaxed">
+              Upload a CSV. Get a forensic bias report in under 3 seconds. No credit card, no setup, no data stored.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button
+                onClick={onSignup}
+                className="px-7 py-3.5 text-sm font-bold text-[#131b2e] bg-white hover:bg-[#f2f3ff] rounded-lg transition-all duration-200 font-inter"
+              >
+                Create free account
+              </button>
+              <button
+                onClick={onLogin}
+                className="px-7 py-3.5 text-sm font-medium text-white/50 hover:text-white transition-colors font-inter flex items-center gap-1.5"
+              >
+                Already have an account?
+                <span className="material-symbols-outlined !text-base">arrow_forward</span>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
       {/* ═══ Footer ═══ */}
-      <footer className="relative z-10 border-t border-white/5 py-10 px-8 md:px-16">
+      <footer className="border-t border-[#c7c4d8]/15 py-10 px-6 md:px-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-md bg-gradient-to-br from-[#3525cd] to-[#7c3aed] flex items-center justify-center">
-              <span className="material-symbols-outlined text-white !text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>balance</span>
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded bg-[#3525cd] flex items-center justify-center">
+              <span className="material-symbols-outlined text-white !text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>balance</span>
             </div>
-            <span className="text-sm font-bold text-white/50 font-manrope">FairLens</span>
-            <span className="text-xs text-white/20 font-inter ml-2">© 2024 FairLens AI Ethics. All rights reserved.</span>
+            <span className="text-sm font-bold text-[#464555] font-manrope">FairLens</span>
+            <span className="text-xs text-[#777587] font-inter ml-2">© 2024 FairLens AI Ethics</span>
           </div>
-          <div className="flex items-center gap-8">
-            <a className="text-xs text-white/25 hover:text-white/50 transition-colors font-inter" href="#">Privacy</a>
-            <a className="text-xs text-white/25 hover:text-white/50 transition-colors font-inter" href="#">Terms</a>
-            <a className="text-xs text-white/25 hover:text-white/50 transition-colors font-inter" href="#">Methodology</a>
-            <a className="text-xs text-white/25 hover:text-white/50 transition-colors font-inter" href="#">API Docs</a>
+          <div className="flex items-center gap-6">
+            <a className="text-xs text-[#777587] hover:text-[#3525cd] transition-colors font-inter" href="#">Privacy</a>
+            <a className="text-xs text-[#777587] hover:text-[#3525cd] transition-colors font-inter" href="#">Terms</a>
+            <a className="text-xs text-[#777587] hover:text-[#3525cd] transition-colors font-inter" href="#">Methodology</a>
+            <a className="text-xs text-[#777587] hover:text-[#3525cd] transition-colors font-inter" href="#">API Docs</a>
           </div>
         </div>
       </footer>
