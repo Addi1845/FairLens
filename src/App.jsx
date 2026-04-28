@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { runBiasAudit, reEvaluate } from './utils/auditLogic';
 
+import LandingPage from './views/LandingPage';
+import AuthModal from './views/AuthModal';
 import UploadView from './views/UploadView';
 import OverviewView from './views/OverviewView';
 import AffectedPeopleView from './views/AffectedPeopleView';
@@ -17,6 +19,11 @@ const LOADING_STEPS = [
 ];
 
 function App() {
+  // Auth state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [authModal, setAuthModal] = useState(null); // null | 'login' | 'signup'
+
   const [currentView, setCurrentView] = useState('upload');
   const [dataset, setDataset] = useState([]);
   const [auditResults, setAuditResults] = useState(null);
@@ -102,6 +109,21 @@ function App() {
     setCurrentView('upload');
   };
 
+  // ── Auth handlers ──
+  const handleAuth = (userData) => {
+    setUser(userData);
+    setIsAuthenticated(true);
+    setAuthModal(null);
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setUser(null);
+    setDataset([]);
+    setAuditResults(null);
+    setCurrentView('upload');
+  };
+
   const renderView = () => {
     switch (currentView) {
       case 'upload':
@@ -134,6 +156,30 @@ function App() {
     { key: 'history', icon: 'history', label: 'History' },
   ];
 
+  // ════════════════════════════════════════════
+  // UNAUTHENTICATED — Show Landing Page
+  // ════════════════════════════════════════════
+  if (!isAuthenticated) {
+    return (
+      <>
+        <LandingPage
+          onLogin={() => setAuthModal('login')}
+          onSignup={() => setAuthModal('signup')}
+        />
+        {authModal && (
+          <AuthModal
+            mode={authModal}
+            onClose={() => setAuthModal(null)}
+            onAuth={handleAuth}
+          />
+        )}
+      </>
+    );
+  }
+
+  // ════════════════════════════════════════════
+  // AUTHENTICATED — Show Dashboard
+  // ════════════════════════════════════════════
   return (
     <div className="bg-surface font-body text-on-surface min-h-screen">
 
@@ -167,11 +213,19 @@ function App() {
           <div className="flex items-center gap-4">
             <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">notifications</span>
             <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">settings</span>
-            <img
-              alt="Profile"
-              className="w-8 h-8 rounded-full bg-surface-container object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXCPMpykFooQ4BQNoydl736oRDZsY9FHLdRtpxzbBgMQJQNGmIdMphL2KJShBzKBFxEM7wKYYWTsKtA_AkRx-LkuT52S5vQq0JQcqIWegsTtnN3yL035DOzDulJjzLixatWKbZUnwO_DdRUzArAggSG-Pp1G1G_HOiw1l4h4Sx3AjLLRuEqhE5NZa_hgitWwKZuaFIS9KOBnjiBHYkHIihRDGAnGUQjMGWR7yeTajt0tDPDZhJT3mS5Y2PjglHUHGBai5fcvM3ZJ8k"
-            />
+            {/* User menu */}
+            <div className="flex items-center gap-2 pl-3 border-l border-[#c7c4d8]/20">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3525cd] to-[#7c3aed] flex items-center justify-center text-white text-xs font-bold font-inter">
+                {(user?.name || 'U').charAt(0).toUpperCase()}
+              </div>
+              <button
+                onClick={handleLogout}
+                className="text-xs text-slate-400 hover:text-red-500 transition-colors font-inter font-medium"
+                title="Sign Out"
+              >
+                <span className="material-symbols-outlined !text-lg">logout</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
